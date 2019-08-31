@@ -1,0 +1,236 @@
+.frames-section
+  padding: 10px 10px 0 0
+  height: 100%
+  text-align: left
+  overflow-y: scroll
+
+.frame
+  position: relative
+  margin: 0 auto 10px auto
+  margin-bottom: 10px
+  width: 96px
+  height: 96px
+  overflow: hidden
+  border: 2px solid #363636
+  border-radius: 2px
+  z-index: 10002
+
+.frame:hover
+  cursor: pointer
+
+// .frame:hover .frame-number
+//   top: 0
+//   left: 0
+
+.frame:hover .frame-delete
+  top: 0
+  right: 0
+
+.frame:hover .frame-copy
+  bottom: 0
+  right: 0
+
+.frame:hover .frame-drag
+  bottom: 0
+  left: 0
+
+.active-frame
+  border: 2px solid #FFD700
+
+.active-frame .frame-number,
+.active-frame .frame-delete,
+.active-frame .frame-copy,
+.active-frame .frame-drag
+  color: rgba(0, 0, 0, 0.5413)
+  background-color: #FFD700
+
+.active-frame .frame-number:hover,
+.active-frame .frame-delete:hover,
+.active-frame .frame-copy:hover,
+.active-frame .frame-drag:hover
+  background-color: #FFF21B
+
+.frame-number
+  position: absolute
+  display: -webkit-flex
+  display: -moz-flex
+  display: -ms-flex
+  display: -o-flex
+  display: flex
+  justify-content: center
+  -ms-align-items: center
+  align-items: center
+  top: 0
+  left: 0
+  width: 25px
+  height: 25px
+  color: #fff
+  background-color: #A6A6A6
+  transition: all 0.3s
+  pointer-events: none
+
+.frame-delete
+  position: absolute
+  display: -webkit-flex
+  display: -moz-flex
+  display: -ms-flex
+  display: -o-flex
+  display: flex
+  justify-content: center
+  -ms-align-items: center
+  align-items: center
+  top: -25px
+  right: -25px
+  width: 25px
+  height: 25px
+  color: #fff
+  background-color: #A6A6A6
+  transition: all 0.3s
+
+.frame-delete::after
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900
+  content: "\f1f8"
+
+.frame-delete:hover
+  background-color: #7D7D7D
+
+.frame-copy
+  position: absolute
+  display: -webkit-flex
+  display: -moz-flex
+  display: -ms-flex
+  display: -o-flex
+  display: flex
+  justify-content: center
+  -ms-align-items: center
+  align-items: center
+  bottom: -25px
+  right: -25px
+  width: 25px
+  height: 25px
+  color: #fff
+  background-color: #A6A6A6
+  transition: all 0.3s
+
+.frame-copy::after
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400
+  content: "\f0c5"
+
+.frame-copy:hover
+  background-color: #7D7D7D
+
+.frame-drag
+  position: absolute
+  display: -webkit-flex
+  display: -moz-flex
+  display: -ms-flex
+  display: -o-flex
+  display: flex
+  justify-content: center
+  -ms-align-items: center
+  align-items: center
+  bottom: -25px
+  left: -25px
+  width: 25px
+  height: 25px
+  color: #fff
+  background-color: #A6A6A6
+  transition: all 0.3s
+  &:hover
+    cursor: move
+
+.frame-drag::after
+  font-family: "Font Awesome 5 Free";
+  font-weight: 700
+  content: "\f0b2"
+
+.frame-drag:hover
+  background-color: #7D7D7D
+
+.canvas
+  image-rendering: -moz-crisp-edges
+  image-rendering: -webkit-crisp-edges
+  image-rendering: pixelated
+  position: relative
+  width: 96px
+  height: 96px
+  pointer-events: none
+  background: url('/src/img/canvas-background-lowcontrast-dark.png') 0 0
+
+.canvas-alllayers
+  image-rendering: -moz-crisp-edges
+  image-rendering: -webkit-crisp-edges
+  image-rendering: pixelated
+  position: absolute
+  top: 0
+  left: 0
+  width: 96px
+  height: 96px
+  pointer-events: none
+  background-size: 477px auto
+
+.add-frame
+  display: flex
+  justify-content: space-between
+  align-items: center
+  margin: 0 auto 0 0
+  padding: 5px
+  width: 96px
+  height: 50px
+  font-size: 14px
+  border: 2px solid #888888
+  border-radius: 5px
+  background-color: transparent
+  color: #888888
+  transition: all 0.2s
+  &:hover
+    border: 2px solid #FFD700
+  span
+    text-align: left
+
+
+.fa-plus
+  margin-right: 10px
+  font-size: 20px
+
+::-webkit-scrollbar-track
+  background: #252525
+
+::-webkit-scrollbar
+  width: 5px
+
+::-webkit-scrollbar-thumb
+  background: #666666
+  border-radius: 5px
+
+[draggable]
+  -moz-user-select: none
+  -khtml-user-select: none
+  -webkit-user-select: none
+  user-select: none
+  /* Required to make elements draggable in old WebKit */
+  -khtml-user-drag: element
+  -webkit-user-drag: element
+
+.over
+  border: 2px dashed #FFD700
+
+.over:after
+  position: absolute
+  content: ""
+  top: 0
+  left: 0
+  width: 96px
+  height: 96px
+  background-color: #413700
+
+
+
+
+
+
+
+
+

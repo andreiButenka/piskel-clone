@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="google-signin-client_id" content="179967854612-b4616ajpspnrusluoam6ea9b7vhn265e.apps.googleusercontent.com">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <title>Piskel clone</title>
+  </head>
+  <body>
+    <header id="header" class="header">
+      <div id = "header-logo" class="header-logo">superPiskel</div>
+      <div class="header-title-wrapper">
+        <div id = "header-title" class="header-title">New Piskel *</div>
+      </div>
+      <div id="header-buttons" class="header-buttons">
+        <span id="username" class="username"></span>
+        <button id="sign-in-or-out-button" class="signin-button button" style="margin-left: 25px"><i class="fab fa-google"></i>Sign In/Authorize</button>
+        <button id="revoke-access-button"
+        class="button revoke-access-button" style="display: none; margin-left: 25px">Revoke access</button>
+
+        <div id="auth-status" style="display: inline; padding-left: 25px"></div>
+      </div>
+    </header>
+    <main>
+      <div id="tools-section-left" class="tools-section-left">
+        <ul id="tools-section-left-wrapper" class="tools-section-left-wrapper">
+          <ul id="pen-size-panel" class="pen-size-panel">
+            <li id="pen-size-1px" class="pen-size-panel-item pen-size-panel-item-1px active-pen-size" data-size="1"><i class="fas fa-square-full pen-size-icon"></i></li>
+            <li id="pen-size-2px" class="pen-size-panel-item pen-size-panel-item-2px" data-size="2"><i class="fas fa-square-full pen-size-icon"></i></li>
+            <li id="pen-size-3px" class="pen-size-panel-item pen-size-panel-item-3px" data-size="3"><i class="fas fa-square-full pen-size-icon"></i></li>
+            <li id="pen-size-4px" class="pen-size-panel-item pen-size-panel-item-4px" data-size="4"><i class="fas fa-square-full pen-size-icon"></i></li>
+          </ul>
+          <li id="pen" class="tool tool_pen active"><img class="tool-icon" src="src/img/tools-icons/tool-pen.png" alt="pen"></li>
+          <li id="mirrorpen" class="tool tool_vertical-mirror-pen"><img class="tool-icon" src="src/img/tools-icons/tool-vertical-mirror-pen.png" alt="mirror-pen"></li>
+          <li id="bucket" class="tool tool-bucket"><img class="tool-icon" src="src/img/tools-icons/tool-paint-bucket.png" alt="bucket"></li>
+          <li id="magicbucket" class="tool tool_colour-swap"><img class="tool-icon" src="src/img/tools-icons/tool-colorswap.png" alt="colorswap"></li>
+          <li id="eraser" class="tool tool_eraser"><img class="tool-icon" src="src/img/tools-icons/tool-eraser.png" alt="eraser"></li>
+          <li id="stroke" class="tool tool_stroke"><img class="tool-icon" src="src/img/tools-icons/tool-stroke.png" alt="stroke"></li>
+          <li id="rectangle" class="tool tool_rectangle"><img class="tool-icon" src="src/img/tools-icons/tool-rectangle.png" alt="rectangle"></li>
+          <li id="circle" class="tool tool_circle"><img class="tool-icon" src="src/img/tools-icons/tool-circle.png" alt="circle"></li>
+          <li id="move" class="tool tool_move"><img class="tool-icon" src="src/img/tools-icons/tool-move.png" alt="move"></li>
+          <li id="shape" class="tool tool_shape-select"><img class="tool-icon" src="src/img/tools-icons/tool-shape-select.png" alt="shape"><div class="tool-tooltip shape-select-tooltip">
+            <div class="tooltip__title">Drag the selection to move it</div>
+            <div class="tooltip-shortkeys">
+              <div class="tooltip-shortkeys__item">
+                <div id="copyshort" class="shortkey">ctrl + c</div>
+                <div class="desc">Copy the selected area</div>
+              </div>
+              <div class="tooltip-shortkeys__item">
+                <div id="pasteshort" class="shortkey">ctrl + v</div>
+                <div class="desc">Past the copied area</div>
+              </div>
+              <div class="tooltip-shortkeys__item">
+                <div class="shortkey">shift</div>
+                <div class="desc">Hold to move the content</div>
+              </div>
+            </div>
+          </div></li>
+          <li id="lighten" class="tool tool_lighten"><img class="tool-icon" src="src/img/tools-icons/tool-lighten.png" alt="lighten"><div class="lighten-tooltip tool-tooltip">
+            <div class="tooltip-shortkeys">
+              <div class="tooltip-shortkeys__item">
+                <div class="shortkey">ctrl</div>
+                <div class="desc">Darken</div>
+              </div>
+            </div>
+          </div></li>
+          <li id="dithering" class="tool tool_dithering"><img class="tool-icon" src="src/img/tools-icons/tool-dithering.png" alt="dithering"></li>
+          <li id="colorpicker" class="tool tool_colorpicker"><img class="tool-icon" src="src/img/tools-icons/tool-colorpicker.png" alt="colorpicker"></li>
+          <ul id="colour-inputs-panel" class="colour-inputs-panel">
+            <li class="current-colour-wrapper">
+              <div id="current-colour" class="current-colour"><input id="colour-input-one" class="colour-input-one" type="color" name="colour-input-one"></div>
+            </li>
+            <li class="second-colour-wrapper">
+              <div id="second-colour" class="second-colour"><input id="colour-input-two" class="colour-input-two" type="color" name="colour-input-two"></div>
+            </li>
+            <li id="colour-input-swap" class="colour-input-swap"><i class="fas fa-sync-alt"></i></li>
+          </ul>
+          <li id="keyboard-shortcuts-show" class="keyboard-shortcuts-show"><i class="far fa-keyboard"></i></li>
+        </ul>
+        <ul id="frames-section" class="frames-section">
+          <button id="add-frame" class="add-frame"><i class="fas fa-plus"></i><span>Add new frame</span></button>
+        </ul>
+      </div>
+      <div id="working-area" class="working-area">
+        <canvas id="draw-canvas" class="draw-canvas" data-canvas-number="1"></canvas>
+      </div>
+      <div id="tools-section-right" class="tools-section-right">
+        <div id="preview-tool" class="preview-tool">
+          <div class="preview-wrapper">
+            <div class="preview-frame">
+              <div id="preview-window" class="preview-window"></div>
+            </div>
+            <div id="preview-controls" class="preview-controls">
+              <label id="frame-rate-label" class="frame-rate-label" for="frame-rate"></label>
+              <input id="frame-rate" class="frame-rate" name="frame-rate" type="range" value="5" min="0" max="24" step="1">
+              <button id="full-screen" class="full-screen"></button>
+            </div>
+          </div>
+        </div>
+        <ul id="layers-section" class="layers-section">
+          <li class="layers-section-header">
+            <div class="layers-section-header__title">Layers</div>
+            <div id="layerspreview" class="layers-section-header__preview"><i class="far fa-eye"></i></div>
+          </li>
+          <li id="layers-section-controls" class="layers-section-controls">
+            <div id="layercreate" class="layers-section-controls__item layers-section-controls__create"><i class="fas fa-plus"></i></div>
+            <div id="layerup" class="layers-section-controls__item layers-section-controls__up"><i class="fas fa-arrow-up"></i></div>
+            <div id="layerdown" class="layers-section-controls__item layers-section-controls__down"><i class="fas fa-arrow-down"></i></div>
+            <div id="editlayername" class="layers-section-controls__item layers-section-controls__edit"><i class="fas fa-pen"></i></div>
+            <div id="layerdelete" class="layers-section-controls__item layers-section-controls__delete"><i class="fas fa-times"></i></div>
+          </li>
+        </ul>
+        <ul id="transforms-section" class="transforms-section">
+          <li class="transforms-section-header">
+            <div class="transforms-section-header__title">Transform</div>
+          </li>
+          <li id="transforms-section-controls" class="transforms-section-controls">
+            <div id="flipvert" class="transforms-section-controls__item"><img src="src/img/transform-icons/tool-flip.png" alt="flip"></div>
+          </li>
+        </ul>
+        <div class="info-panel">
+          <div id="info-panel__canvas-scale" class="info-panel__canvas-scale">
+            <span>x</span><span id="scale-value" class="scale-value">16.25</span>
+          </div>
+          <div id="info-panel__canvas-size" class="info-panel__canvas-size">
+            [<span id="canvas-width" class="canvas-width"></span>x<span id="canvas-height" class="canvas-height"></span>]
+          </div>
+          <div id="info-panel__cursor-coords" class="info-panel__cursor-coords">
+            <span id="coords-x" class="coords-x"></span> : <span id="coords-y" class="coords-y"></span>
+          </div>
+        </div>
+      </div>
+      <div id="settings-section" class="settings-section">
+        <div class="settings-section-icon settings-section-icon_user"><img src="src/img/settings-icons/settings-gear-white.png" alt="user"></div>
+        <div class="settings-section-icon settings-section-icon_resize"><img src="src/img/settings-icons/settings-resize-white.png" alt="resize"></div>
+        <div class="settings-section-icon settings-section-icon_save"><img src="src/img/settings-icons/settings-save-white.png" alt="save"></div>
+        <div class="settings-section-icon settings-section-icon_export"><img src="src/img/settings-icons/settings-export-white.png" alt="export"></div>
+        <div class="settings-section-icon settings-section-icon_import"><img src="src/img/settings-icons/settings-open-folder-white.png" alt="import"></div>
+        <div id="settings-section-panel_user" class="settings-section-panel settings-section-panel_user"><h2 class="settings-section-panel-title">settings</h2></div>
+        <div id="settings-section-panel_resize" class="settings-section-panel settings-section-panel_resize">
+          <h2 class="settings-section-panel-title">resize</h2>
+          <form id="settings-section-panel_resize-form" class="settings-section-panel-form settings-section-panel_resize-form">
+            <div class="settings-section-panel_resize-form-title">canvas width / height (px)</div>
+            <input type="radio" id="canvas-size-choice-1" class="canvas-size-choice" name="canvas-size-choice" value="32" checked>
+            <label for="canvas-size-choice-1">32x32</label>
+            <input type="radio" id="canvas-size-choice-2" class="canvas-size-choice" name="canvas-size-choice" value="64">
+            <label for="canvas-size-choice-2">64x64</label>
+            <input type="radio" id="canvas-size-choice-3" class="canvas-size-choice" name="canvas-size-choice" value="128">
+            <label for="canvas-size-choice-3">128x128</label>
+            <button id="settings-section-panel_reize-button" class="settings-section-panel-button" type="submit">Resize</button>
+          </form>
+          <h2 class="settings-section-panel-title">default size</h2>
+          <form id="settings-section-panel_resize-form_default" class="settings-section-panel-form settings-section-panel_resize-form settings-section-panel_resize-form_defailt">
+            <div class="settings-section-panel_resize-form-title">default canvas width / height (px)</div>
+            <input type="radio" id="canvas-size-choice-1_default"
+                 name="canvas-size-choice_default" value="32" checked>
+            <label for="canvas-size-choice-1_default">32x32</label>
+            <input type="radio" id="canvas-size-choice-2_default"
+                 name="canvas-size-choice_default" value="64">
+            <label for="canvas-size-choice-2_default">64x64</label>
+            <input type="radio" id="canvas-size-choice-3_default"
+                 name="canvas-size-choice_default" value="128">
+            <label for="canvas-size-choice-3_default">128x128</label>
+            <button id="settings-section-panel_reize-button_default" class="settings-section-panel-button" type="submit">Set default</button>
+          </form>
+        </div>
+        <div id="settings-section-panel_save" class="settings-section-panel settings-section-panel_save"><h2 class="settings-section-panel-title">sprite information</h2></div>
+        <div id="settings-section-panel_export" class="settings-section-panel settings-section-panel_export"><h2 class="settings-section-panel-title">export</h2>
+          <ul id="export-format-list" class="export-format-list">
+            <li id="exportgif" class="export-format-list__item export-format-list__item_active">GIF</li>
+            <li id="exportapng" class="export-format-list__item">APNG</li>
+          </ul>
+          <div class="export-controls">
+            <button id="settings-section-panel_export-button" class="settings-section-panel-button" type="submit">Download</button>
+            <span id="export-controls-tip" class="export-controls-tip">Download as an animated <br> GIF.</span>
+          </div>
+          <div id="upload-controls" class="export-controls export-controls_upload">
+            <div class="upload-controls__item">
+              <button id="settings-section-panel_export-upload" class="settings-section-panel-button
+              " type="submit">Giphy.com</button>
+              <span id="export-controls-upload-tip" class="export-controls-tip export-controls-tip_upload">Upload as an animated <br> GIF to the giphy.com.</span>
+              <span id="export-controls-upload-tip_report" class="export-controls-tip export-controls-tip_report hide">Your image is now available at:
+                <br>
+                <a  href="#" id='giphy-url' class="giphy-url" target="_blanc"></a>
+              </span>
+              <span id="export-controls-upload-tip_report-bad" class="export-controls-tip export-controls-tip_report export-controls-tip_report-bad hide">Something has gone wrong.
+              <br> Please, try again.
+              </span>
+            </div>
+            <div class="upload-controls__item">
+              <button id="upload-google" class="settings-section-panel-button" type="submit">Google</button>
+              <span id="google-drive-tip" class="export-controls-tip export-controls-tip_upload export-controls-tip_upload-google">Upload as an animated GIF to <br> your Google Drive.</span>
+              <span id="google-drive-report" class="google-drive-tip export-controls-tip export-controls-tip_report hide">Your image has been uploaded <br> to your Google drive</span>
+            </div>
+          </div>
+        </div>
+        <div id="settings-section-panel_import" class="settings-section-panel settings-section-panel_import"><h2 class="settings-section-panel-title">load from browser</h2></div>
+      </div>
+      <div id="keyboard-shortcuts-popup" class="keyboard-shortcuts-popup hide">
+        <div class="keyboard-shortcuts-panel">
+          <div class="keyboard-shortcuts-panel__header">
+            <div class="keyboard-shortcuts-panel__header-title">Keyboard shortcuts</div>
+            <div id="keyboard-shortcuts-panel__header-close" class="keyboard-shortcuts-panel__header-close"><i class="fas fa-times"></i></div>
+          </div>
+          <div class="keyboard-shortcuts-panel__main">
+            <ul class="cheatsheet-shortcuts cheatsheet-tool-shortcuts"><h3 class="cheatsheet-shortcuts__title">Tool shortcuts</h3>
+              <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_pen" data-control="pen" data-mod=" ">
+                <div class="cheatsheet-icon"><img src="src/img/tools-icons/tool-pen.png" alt="pen"></div>
+                <div class="cheatsheet-key">P</div>
+                <div class="cheatsheet-desc">Pen tool</div>
+              </li>
+              <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_mirrorpen" data-control="mirrorpen" data-mod=" ">
+                <div class="cheatsheet-icon"><img src="src/img/tools-icons/tool-vertical-mirror-pen.png" alt="mirrorpen"></div>
+                <div class="cheatsheet-key">V</div>
+                <div class="cheatsheet-desc">Vertical mirror pen tool</div>
+              </li>
+              <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_bucket" data-control="bucket">
+                <div class="cheatsheet-icon"><img src="src/img/tools-icons/tool-paint-bucket.png" alt="bucket"></div>
+                <div class="cheatsheet-key">B</div>
+                <div class="cheatsheet-desc">Paint bucket tool</div>
+              </li>
+              <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_magicbucket" data-control="magicbucket">
+                <div class="cheatsheet-icon"><img src="src/img/tools-icons/tool-colorswap.png" alt="swap"></div>
+                <div class="cheatsheet-key">A</div>
+                <div class="cheatsheet-desc">Magic bucket tool</div>
+              </li>
+              <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_eraser" data-control="eraser">
+                <div class="cheatsheet-icon"><img src="src/img/tools-icons/tool-eraser.png" alt="eraser"></div>
+                <div class="cheatsheet-key">E</div>
+                <div class="cheatsheet-desc">Eraser pen tool</div>
+              </li>
+              <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_stroke" data-control="stroke">
+                <div class="cheatsheet-icon"><img src="src/img/tools-icons/tool-stroke.png" alt="stroke"></div>
+                <div class="cheatsheet-key">L</div>
+                <div class="cheatsheet-desc">Stroke tool</div>
+              </li>
+              <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_rectangle" data-control="rectangle">
+                <div class="cheatsheet-icon"><img src="src/img/tools-icons/tool-rectangle.png" alt="rectangle"></div>
+                <div class="cheatsheet-key">R</div>
+                <div class="cheatsheet-desc">Rectangle tool</div>
+              </li>
+              <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_circle" data-control="circle">
+                <div class="cheatsheet-icon"><img src="src/img/tools-icons/tool-circle.png" alt="circle"></div>
+                <div class="cheatsheet-key">C</div>
+                <div class="cheatsheet-desc">Circle tool</div>
+              </li>
+              <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_move" data-control="move">
+                <div class="cheatsheet-icon"><img src="src/img/tools-icons/tool-move.png" alt="move"></div>
+                <div class="cheatsheet-key">M</div>
+                <div class="cheatsheet-desc">Move tool</div>
+              </li>
+              <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_shape" data-control="shape">
+                <div class="cheatsheet-icon"><img src="src/img/tools-icons/tool-shape-select.png" alt="shape"></div>
+                <div class="cheatsheet-key">Z</div>
+                <div class="cheatsheet-desc">Shape selection</div>
+              </li>
+              <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_lighten" data-control="lighten">
+                <div class="cheatsheet-icon"><img src="src/img/tools-icons/tool-lighten.png" alt="lighten"></div>
+                <div class="cheatsheet-key">U</div>
+                <div class="cheatsheet-desc">Lighten tool</div>
+              </li>
+              <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_dithering" data-control="dithering">
+                <div class="cheatsheet-icon"><img src="src/img/tools-icons/tool-dithering.png" alt="dithering"></div>
+                <div class="cheatsheet-key">T</div>
+                <div class="cheatsheet-desc">Dithering tool</div>
+              </li>
+              <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_colorpicker" data-control="colorpicker">
+                <div class="cheatsheet-icon"><img src="src/img/tools-icons/tool-colorpicker.png" alt="colorpicker"></div>
+                <div class="cheatsheet-key">O</div>
+                <div class="cheatsheet-desc">Color picker</div>
+              </li>
+            </ul>
+            <ul class="cheatsheet-shortcuts cheatsheet-misc-shortcuts"><h3 class="cheatsheet-shortcuts__title">Misc shortcuts</h3>
+              <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_incrpensize" data-control="incrpensize">
+                <div class="cheatsheet-key">&#x5d;</div>
+                <div class="cheatsheet-desc">Increase pen size</div>
+              </li>
+              <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_decrpensize" data-control="decrpensize">
+                <div class="cheatsheet-key">&#x5b;</div>
+                <div class="cheatsheet-desc">Decrease pen size</div>
+              </li>
+              <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_selectprevframe" data-control="selectprevframe">
+                <div class="cheatsheet-key">&#8593;</div>
+                <div class="cheatsheet-desc">Select previous frame</div>
+              </li>
+              <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_selectnextframe" data-control="selectnextframe">
+                <div class="cheatsheet-key">&#8595;</div>
+                <div class="cheatsheet-desc">Select next frame</div>
+              </li>
+              <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_createframe" data-control="createframe">
+                <div class="cheatsheet-key">N</div>
+                <div class="cheatsheet-desc">Create new empty frame</div>
+              </li>
+              <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_dublicateframe" data-control="dublicateframe">
+                <div class="cheatsheet-key">shift + N</div>
+                <div class="cheatsheet-desc">Dublicate selected frame</div>
+              </li>
+              <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_opencheatsheet notremapped"  data-control="opencheatsheet">
+                <div class="cheatsheet-key">&#x3f;</div>
+                <div class="cheatsheet-desc">Open the keyboard shortcut cheatsheet</div>
+              </li>
+              <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_previewfull"  data-control="previewfull">
+                <div class="cheatsheet-key">alt + 1</div>
+                <div class="cheatsheet-desc">Enter/exit full screen preview</div>
+              </li>
+              <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_closepopup"  data-control="closepopup">
+                <div class="cheatsheet-key">ESC</div>
+                <div class="cheatsheet-desc">Close an opened popup</div>
+              </li>
+            </ul>
+            <div class="selection-color-storage-shortcuts cheatsheet-shortcuts">
+              <ul class="cheatsheet-shortcuts cheatsheet-selection-shortcuts"><h3 class="cheatsheet-shortcuts__title">Selection shortcuts</h3>
+                <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_copyselection"  data-control="copyselection">
+                <div id="copyshortcut" class="cheatsheet-key">ctrl + C</div>
+                <div class="cheatsheet-desc">Copy selection</div>
+                </li>
+                <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_pasteselection"  data-control="pasteselection">
+                <div id="pasteshortcut" class="cheatsheet-key">ctrl + V</div>
+                <div class="cheatsheet-desc">Paste selection</div>
+                </li>
+              </ul>
+              <ul class="cheatsheet-shortcuts cheatsheet-color-shortcuts"><h3 class="cheatsheet-shortcuts__title">Color shortcuts</h3>
+                <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_swapcolors"  data-control="swapcolors">
+                <div class="cheatsheet-key">X</div>
+                <div class="cheatsheet-desc">Swap primary/secondary colors</div>
+                </li>
+                <li class="cheatsheet-shortcuts__item cheatsheet-shortcuts__item_resetcolors"  data-control="resetcolors">
+                <div class="cheatsheet-key">D</div>
+                <div class="cheatsheet-desc">Reset default colors</div>
+                </li>
+              </ul>
+              <ul class="cheatsheet-shortcuts cheatsheet-storage-shortcuts"><h3 class="cheatsheet-shortcuts__title">Storage shortcuts</h3>
+              </ul>
+            </div>
+          </div>
+          <div class="keyboard-shortcuts-panel__footer">
+            <div class="keyboard-shortcuts-panel__footer-title">Customize shortcuts ?</div>
+            <button id="keyboard-shortcuts-panel__footer-restore-default" class="keyboard-shortcuts-panel__footer-restore-default">Restore default shortcuts</button>
+          </div>
+        </div>
+
+      </div>
+    </main>
+    <script>
+      var GoogleAuth;
+      var SCOPE = 'https://www.googleapis.com/auth/drive.file';
+      function handleClientLoad() {
+        gapi.load('client:auth2', initClient);
+      }
+      function initClient() {
+        var discoveryUrl = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
+        gapi.client.init({
+            'apiKey': 'AIzaSyB5e_JTi7-TjUwbla1-jSqohWqAWXHHcF0',
+            'discoveryDocs': [discoveryUrl],
+            'clientId': '179967854612-b4616ajpspnrusluoam6ea9b7vhn265e.apps.googleusercontent.com',
+            'scope': SCOPE
+        }).then(function () {
+          GoogleAuth = gapi.auth2.getAuthInstance();
+          GoogleAuth.isSignedIn.listen(updateSigninStatus);
+          var user = GoogleAuth.currentUser.get();
+          setSigninStatus();
+          $('#sign-in-or-out-button').click(function() {
+            handleAuthClick();
+          });
+          $('#revoke-access-button').click(function() {
+            revokeAccess();
+          });
+        });
+      }
+      function handleAuthClick() {
+        if (GoogleAuth.isSignedIn.get()) {
+          GoogleAuth.signOut();
+        } else {
+          GoogleAuth.signIn();
+        }
+      }
+      function revokeAccess() {
+        GoogleAuth.disconnect();
+      }
+      function setSigninStatus(isSignedIn) {
+        var user = GoogleAuth.currentUser.get();
+        var profile = GoogleAuth.currentUser.get().getBasicProfile();
+        var isAuthorized = user.hasGrantedScopes(SCOPE);
+        if (isAuthorized) {
+          $('#username').html(profile.getEmail().slice(0, -10));
+          $('#sign-in-or-out-button').html('<i class="fab fa-google"></i>Sign out');
+        } else {
+          $('#sign-in-or-out-button').html('<i class="fab fa-google"></i>Sign In/Authorize');
+          $('#username').html('');
+        }
+      }
+      function updateSigninStatus(isSignedIn) {
+        setSigninStatus();
+      }
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script async defer src="https://apis.google.com/js/api.js"
+            onload="this.onload=function(){};handleClientLoad()"
+            onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+  </body>
+</html>
+

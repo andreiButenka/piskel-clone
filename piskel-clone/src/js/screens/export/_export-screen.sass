@@ -1,0 +1,62 @@
+.export-format-list
+  display: -webkit-flex
+  display: -moz-flex
+  display: -ms-flex
+  display: -o-flex
+  display: flex
+  margin-bottom: 10px
+  width: 241px
+  border-bottom: 1px solid #FFD700
+  &__item
+    position: relative
+    top: 1px
+    margin-right: 10px
+    padding: 5px
+    font-size: 12px
+    &:hover
+      color: #FFD700
+      cursor: pointer
+    &_active
+      color: #FFD700
+      border-top: 1px solid #FFD700
+      border-right: 1px solid #FFD700
+      border-bottom: 1px solid #444444
+      border-left: 1px solid #FFD700
+.export-controls
+  display: -webkit-flex
+  display: -moz-flex
+  display: -ms-flex
+  display: -o-flex
+  display: flex
+  align-items: flex-start
+  flex-wrap: wrap
+  &-tip
+    text-align: left
+    margin-left: 10px
+    font-size: 14px
+    &_upload
+      margin-left: 8px
+      &-google
+        margin-left: 26px
+    &_report
+      flex-basis: 100%
+      line-height: 19px
+      margin-top: -20px
+      margin-bottom: 20px
+      a
+        text-decoration: none
+        outline: none
+        color: #FFD700
+      &-bad
+        color: red
+
+.upload-controls__item
+  display: -webkit-flex
+  display: -moz-flex
+  display: -ms-flex
+  display: -o-flex
+  display: flex
+  flex-wrap: wrap
+
+.hide
+  display: none

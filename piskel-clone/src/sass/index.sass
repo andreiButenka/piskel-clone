@@ -1,0 +1,135 @@
+body
+  height: 100vh
+  height: 100vh
+  overflow: hidden
+  user-select: none
+
+body *
+  font-family: 'Roboto', sans-serif
+
+.header
+  position: relative
+  display: flex
+  justify-content: space-between
+  align-items: center
+  padding: 0 10px
+  width: 100%
+  height: 36px
+  color: #fff
+  background-color: #2D2D2D
+  z-index: 100000
+  &-logo
+    font-size: 30px
+    font-weight: 700
+  &-buttons
+    height: 30px
+  &-title-wrapper
+    display: -webkit-flex
+    display: -moz-flex
+    display: -ms-flex
+    display: -o-flex
+    display: flex
+    justify-content: center
+    align-items: center
+
+.button
+  margin-right: 5px
+  padding: 5px 10px
+  text-decoration: none
+  outline: none
+  border: none
+  border-radius: 2px
+  color: #000
+  font-weight: 700
+  background-color: #FFD700
+  transition: background-color 0.3s
+
+.signin-button
+  i
+    margin-right: 8px
+
+main
+  display: flex
+  justify-content: space-between
+  align-items: center
+  width: 100%
+  height: calc(100% - 36px)
+
+.working-area
+  // position: relative
+  display: flex
+  justify-content: center
+  align-items: center
+  flex-direction: column
+  flex-grow: 1
+  // width: calc(100vw - 485px)
+  height: 100%
+  overflow: hidden
+
+  // height: calc(100vh - 36px)
+  background-color: #A0A0A0
+  pointer-events: none
+
+.draw-canvas
+  position: absolute
+  image-rendering: optimizeSpeed
+  image-rendering: -moz-crisp-edges
+  image-rendering: -webkit-optimize-contrast
+  image-rendering: -o-crisp-edges
+  image-rendering: pixelated
+  -ms-interpolation-mode: nearest-neighbor
+  image-rendering: pixelated
+  width: 500px
+  height: 500px
+  min-width: 32px
+  min-height: 32px
+  max-width: 1200px
+  max-height: 1200px
+  background: #fff
+  background: url('/src/img/canvas-background-lowcontrast-dark.png') 0 0
+  pointer-events: auto
+
+.canvas-copy,
+.canvas-temp,
+.canvas-cursor
+  position: absolute
+  image-rendering: optimizeSpeed
+  image-rendering: -moz-crisp-edges
+  image-rendering: -webkit-optimize-contrast
+  image-rendering: -o-crisp-edges
+  image-rendering: pixelated
+  -ms-interpolation-mode: nearest-neighbor
+  image-rendering: pixelated
+  width: 500px
+  height: 500px
+  min-width: 32px
+
+  min-height: 32px
+  max-width: 1200px
+  max-height: 1200px
+  // pointer-events: none
+
+.fa,
+.fas
+  color: #fff
+
+
+@import "../js/components/frames-list/frames-list";
+@import "../js/components/layers-list/layers-list";
+@import "../js/components/tools-list/tools-list";
+@import "../js/screens/preview/preview";
+@import "../js/screens/export/export-screen";
+@import "../js/components/shortcuts-list/shortcuts-list";
+@import "../js/screens/sticky-menu/sticky-menu";
+@import "../js/screens/info-panel/info-panel";
+@import "../js/components/transform-list/transform-list";
+
+
+
+
+
+
+
+
+
+
